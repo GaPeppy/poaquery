@@ -1,0 +1,2 @@
+# poaquery
+Querying Partnership data
