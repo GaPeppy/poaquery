@@ -45,10 +45,10 @@ async function queryPartnerAPI(page=1) {
 
 async function main(){
   // get an array of all accounts under the partnership
-  aAccounts = await queryPartnerLoop()
+  var atmp = await queryPartnerLoop()
 
   //filter out the cancelled accounts
-  aAccounts.filter(acct => acct.status != 'cancelled')
+  var aAccounts = atmp.filter(acct => acct.status != 'cancelled')
   aAccounts.sort((a,b) => {
     if(a.parent_account_id == b.parent_account_id){
       if(a.id > b.id) {return 1} else {return -1}
@@ -61,7 +61,8 @@ async function main(){
 
   //create output csv and log to stdout
   aAccounts.forEach((val,idx) => {
-    aline = [val.parent_account_id,val.id,val.name,val.status,val.high_security]
+//   aline = [val.parent_account_id,val.id,val.name,val.status,val.high_security,val.allow_api_access,val["primary admin"].email]
+    aline = [val.parent_account_id,val.id,val.name,val.high_security,val.allow_api_access,val["primary admin"].email]
     console.log(aline.join(','))
   })
 }
